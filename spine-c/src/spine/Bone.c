@@ -114,7 +114,6 @@ void spBone_updateWorldTransformWith (spBone* self, float x, float y, float rota
 	CONST_CAST(float, self->worldY) = pc * x + pd * y + parent->worldY;
 	//CONST_CAST(int, self->aflipX) = (self->parent->aflipX&1) ^ (self->flipX&1);
 	//CONST_CAST(int, self->aflipY) = (self->parent->aflipY&1) ^ (self->flipY&1);
-	rotation = rotation * (parent->scaleX * parent->scaleY >= 0 ? 1 : -1);
 
 
 	switch (self->data->transformMode) {

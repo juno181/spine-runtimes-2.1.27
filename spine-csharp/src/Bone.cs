@@ -187,7 +187,6 @@ namespace Spine {
 			float pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
 			worldX = pa * x + pb * y + parent.worldX;
 			worldY = pc * x + pd * y + parent.worldY;
-            rotation = rotation * (parent.scaleX * parent.scaleY >= 0 ? 1 : -1);
 
 			switch (data.transformMode) {
 			case TransformMode.Normal: {

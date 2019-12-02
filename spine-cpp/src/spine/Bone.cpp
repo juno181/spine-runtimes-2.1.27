@@ -137,7 +137,6 @@ void Bone::updateWorldTransform(float x, float y, float rotation, float scaleX, 
 
 	_worldX = pa * x + pb * y + parent->_worldX;
 	_worldY = pc * x + pd * y + parent->_worldY;
-	rotation = rotation * (parent->scaleX * parent->scaleY >= 0 ? 1 : -1);
 	
 	switch (_data.getTransformMode()) {
 	case TransformMode_Normal: {
