@@ -137,14 +137,15 @@ void Bone::updateWorldTransform(float x, float y, float rotation, float scaleX, 
 
 	_worldX = pa * x + pb * y + parent->_worldX;
 	_worldY = pc * x + pd * y + parent->_worldY;
+	rotation = rotation * (parent->scaleX * parent->scaleY >= 0 ? 1 : -1);
 	
 	switch (_data.getTransformMode()) {
 	case TransformMode_Normal: {
 		float rotationY = rotation + 90 + shearY;
-		float la = MathUtil::cosDeg(rotation + shearX) * scaleX;
-		float lb = MathUtil::cosDeg(rotationY) * scaleY;
-		float lc = MathUtil::sinDeg(rotation + shearX) * scaleX;
-		float ld = MathUtil::sinDeg(rotationY) * scaleY;
+		float la = MathUtil::cosDeg(rotation + shearX) * scaleX / parent->_ascaleX;
+		float lb = MathUtil::cosDeg(rotationY) * scaleY / parent->_ascaleX;
+		float lc = MathUtil::sinDeg(rotation + shearX) * scaleX / parent->_ascaleY;
+		float ld = MathUtil::sinDeg(rotationY) * scaleY / parent->_ascaleY;
 		_a = pa * la + pb * lc;
 		_b = pa * lb + pb * ld;
 		_c = pc * la + pd * lc;

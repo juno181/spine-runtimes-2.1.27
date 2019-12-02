@@ -114,15 +114,16 @@ void spBone_updateWorldTransformWith (spBone* self, float x, float y, float rota
 	CONST_CAST(float, self->worldY) = pc * x + pd * y + parent->worldY;
 	//CONST_CAST(int, self->aflipX) = (self->parent->aflipX&1) ^ (self->flipX&1);
 	//CONST_CAST(int, self->aflipY) = (self->parent->aflipY&1) ^ (self->flipY&1);
+	rotation = rotation * (parent->scaleX * parent->scaleY >= 0 ? 1 : -1);
 
 
 	switch (self->data->transformMode) {
 		case SP_TRANSFORMMODE_NORMAL: {
 			float rotationY = rotation + 90 + shearY;
-			float la = COS_DEG(rotation + shearX) * scaleX;
-			float lb = COS_DEG(rotationY) * scaleY;
-			float lc = SIN_DEG(rotation + shearX) * scaleX;
-			float ld = SIN_DEG(rotationY) * scaleY;
+			float la = COS_DEG(rotation + shearX) * scaleX / parent->ascaleX;
+			float lb = COS_DEG(rotationY) * scaleY / parent->ascaleX;
+			float lc = SIN_DEG(rotation + shearX) * scaleX / parent->ascaleY;
+			float ld = SIN_DEG(rotationY) * scaleY / parent->ascaleY;
 			CONST_CAST(float, self->a) = pa * la + pb * lc;
 			CONST_CAST(float, self->b) = pa * lb + pb * ld;
 			CONST_CAST(float, self->c) = pc * la + pd * lc;

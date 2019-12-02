@@ -187,14 +187,15 @@ namespace Spine {
 			float pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
 			worldX = pa * x + pb * y + parent.worldX;
 			worldY = pc * x + pd * y + parent.worldY;
+            rotation = rotation * (parent.scaleX * parent.scaleY >= 0 ? 1 : -1);
 
 			switch (data.transformMode) {
 			case TransformMode.Normal: {
 					float rotationY = rotation + 90 + shearY;
-					float la = MathUtils.CosDeg(rotation + shearX) * scaleX;
-					float lb = MathUtils.CosDeg(rotationY) * scaleY;
-					float lc = MathUtils.SinDeg(rotation + shearX) * scaleX;
-					float ld = MathUtils.SinDeg(rotationY) * scaleY;
+					float la = MathUtils.CosDeg(rotation + shearX) * scaleX / parent.scaleX;
+					float lb = MathUtils.CosDeg(rotationY) * scaleY / parent.scaleX;
+					float lc = MathUtils.SinDeg(rotation + shearX) * scaleX / parent.scaleY;
+					float ld = MathUtils.SinDeg(rotationY) * scaleY / parent.scaleY;
 					a = pa * la + pb * lc;
 					b = pa * lb + pb * ld;
 					c = pc * la + pd * lc;
